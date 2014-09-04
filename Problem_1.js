@@ -2,7 +2,7 @@
 
 
 //Approach 1 - brute force
-var answer1a = 0;
+var answer1 = 0;
 for(i = 0; i < 1000; i++) {
 	if(i % 3 == 0) 
 		answer1b += i;
@@ -17,5 +17,5 @@ function arithSeries(start, end, diff) {
 var answer1b = arithSeries(3,999,3) + arithSeries(5,995,5) - arithSeries(15,990,15);
 
 
-console.log(answer1a);
+console.log(answer1);
 console.log(answer1b);
