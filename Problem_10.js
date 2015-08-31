@@ -1,3 +1,4 @@
+//use prime sieve
 function sumPrimesToN( n ) {
   var primes = [];
   for ( var i = 0; i < n; i++ ) {
