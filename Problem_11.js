@@ -21,15 +21,18 @@ var matrix = [
 [01, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 01, 89, 19, 67, 48]];
 
 var max = 0;
-var h, v, dM, dm;
-for (var i = 0; i < 20; i++) {
-  for (var j = 0; j < 20; j++) {
-    if (i + 3 < 20) v = matrix[i][j] * matrix[i][j+1] * matrix[i][j+2] * matrix[i][j+3];
-    if (i + 3 < 20) h = matrix[i][j] * matrix[i+1][j] * matrix[i+2][j] * matrix[i+3][j];
-    if (i + 3 < 20 && j + 3 < 20) dM = matrix[i][j] * matrix[i+1][j+1] * matrix[i+2][j+2] * matrix[i+3][j+3];
-    if (j + 3 < 20 && i - 3 >= 0) dm = matrix[i][j] * matrix[i-1][j+1] * matrix[i-2][j+2] * matrix[i-3][j+3];
+var len = matrix.length;
 
-    var tempMax = Math.max(h, v, dM, dm);
+var horizontal, vertical, diagonalMajor, diagonalMinor;
+for (var i = 0; i < len; i++) {
+  for (var j = 0; j < len; j++) {
+    
+    if (i + 3 < len) vertical = matrix[i][j] * matrix[i][j+1] * matrix[i][j+2] * matrix[i][j+3];
+    if (i + 3 < len) horizontal = matrix[i][j] * matrix[i+1][j] * matrix[i+2][j] * matrix[i+3][j];
+    if (i + 3 < len && j + 3 < len) diagonalMajor = matrix[i][j] * matrix[i+1][j+1] * matrix[i+2][j+2] * matrix[i+3][j+3];
+    if (j + 3 < len && i - 3 >= 0) diagonalMinor = matrix[i][j] * matrix[i-1][j+1] * matrix[i-2][j+2] * matrix[i-3][j+3];
+
+    var tempMax = Math.max(horizontal, vertical, diagonalMajor, diagonalMinor);
     if (tempMax > max) max = tempMax;
   }
 }
