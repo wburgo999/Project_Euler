@@ -2,12 +2,12 @@
 
 
 //Approach 1 - brute force
-var answer1 = 0;
-for(i = 0; i < 1000; i++) {
-	if(i % 3 == 0) 
-		answer1b += i;
-	else if (i % 5 == 0) 
-		answer1b += i;
+function problem_1() {
+  var sum = 0;
+  for (var i = 0; i < 1000; i++) {
+    if (i % 3 === 0 || i % 5 === 0) sum += i;
+  }
+  return sum;
 }
 
 //Approach 2 - using the the formula for arithmetic series
