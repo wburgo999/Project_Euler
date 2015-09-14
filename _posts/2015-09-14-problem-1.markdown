@@ -14,9 +14,6 @@ categories: Problem_1
 > Find the sum of all the multiples of 3 or 5 below 1000.
 
 
-har har har
-<!--more-->
-
 Naive solution: just loop through from 1 to 1000, and add each multiple of 3 or 5 to a running total. An easy way to check if a number, n, is a multiple of m,
 is whether n % m is 0;
 
