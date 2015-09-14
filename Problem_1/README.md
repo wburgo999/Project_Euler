@@ -18,7 +18,7 @@ function sumMultiplesOf3And5() {
 
 Math Solution:
 <p align="center">
-  <img src="http://www.sciweavers.org/tex2img.php?eq=%20%5Csum_%7Bi%3D1%7D%5E%7B333%7D%20%7B3i%7D%20%2B%20%20%5Csum_%7Bi%3D1%7D%5E%7B199%7D%20%7B5i%7D%20-%20%20%5Csum_%7Bi%3D1%7D%5E%7B66%7D%20%7B15i%7D&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" alt="Sublime's custom image"/>
+  <img src="./math/render.png" alt="Sublime's custom image"/>
 </p>
 If we take the equation for an arithmetic series: 
 <p align="center">
