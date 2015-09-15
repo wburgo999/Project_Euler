@@ -20,7 +20,7 @@ categories: Problem_1
 > 
 > Evaluate the sum of all the amicable numbers under 10000.
 
-The algorithm is fairly straightforward.
+Let's pseudocode out the algorithm.
 Note, since a and b must be a pair, meaning they are distinct numbers, we need to make sure not to count the case where the sum of all divisors of n equals n.
 {% highlight js %}
 For each n from 1 to 10000
