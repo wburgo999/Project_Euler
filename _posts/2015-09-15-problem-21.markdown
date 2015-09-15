@@ -44,7 +44,7 @@ function amicableNumbers(n) {
 
 Now let's write `sumOfDivisors`. We can split it out into two steps: (1) summing the divisors, and (2) generating a list of the divisors
 
-{% highlight %}
+{% highlight js %}
 function sumOfDivisors(n) {
   var divisors = getDivisors(n);
   return divisors.reduce(function(a, b) { return a + b });
