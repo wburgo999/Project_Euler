@@ -4,30 +4,24 @@ product of two 2-digit numbers is 9009 = 91 × 99.
 Find the largest palindrome made from the product of two 3-digit numbers.
 */
 
-function genProducts(num) {
+function largestPalindromeProduct() {
+  var products = genProducts()
+    products = products.sort(function(a,b) {return b-a});
+  for (var i = 0; i < products.length; i++) {
+    if (isPalindrome(products[i])) return products[i];
+  }
+}
+function genProducts() {
 	var products = [];
-	for(var i = 100; i < num; i++) {
-		for(var j = 100; j <= i; j++) {
+	for(var i = 100; i < 1000; i++) {
+		for(var j = 100; j <= i; j++) { //j starts at i to avoid double counting products
 			products.push(i*j);
 		}
 	}
 	return products;
 }
-
-function checkPalindrome(str) {
-	str = '' + str;
-	return (str == str.split('').reverse().join(''));
+function isPalindrome(num) {
+  return String(num).split('').reverse().join('') === String(num);
 }
 
-var products = genProducts(1000).sort(function(a,b) {return b-a});
-function checkLargest(arr) {
-	for(var i = 0; i < arr.length; i++) {
-		if (checkPalindrome(arr[i]))
-			return arr[i];
-
-	}
-}
-
-var result = checkLargest(products);
-
-console.log(result);
+console.log(largestPalindromeProduct());
