@@ -56,7 +56,7 @@ We cache previous results to speed up the algorithm.
 
 Why do we only loop to the square root instead of all the way to n?
 
-Define `root` to be the square root of n. Note that if `a * b = n`, that either (1) `a = b` (2) `a > root` or (3) `b > root`. If this were not true, then `a * b < n` and they would not be proper divisors. This means that for all proper divisors of n greater than root, there is a matching divisors less than root, so as long as we add both factors whenever we encounter a divisor less than root, we won't miss any divisors. We also need to make sure not to double count the root.
+Define `root` to be the square root of n. Note that if `a * b = n`, that either (1) `a = b` (2) `a > root` or (3) `b > root`. If this were not true, then `a * b < n` and they would not be proper divisors. This means that for all proper divisors of n greater than root, there is a matching divisor less than root, so as long as we add both factors whenever we encounter a divisor less than root, we won't miss any divisors. We also need to make sure not to double count the root.
 
 {% highlight js %}
 var getDivisors = (function() {
