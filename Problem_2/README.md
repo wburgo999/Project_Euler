@@ -7,23 +7,35 @@
 > By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
 
 Solution: The fibonacci sequence is defined as:
-![equation]()
+<p align="center">
+  <img src="./math/fib.png" />
+</p>
 
 So, we can continue to generate the sequence until we reach a term over `4000000`, and maintain a running sum of all the even terms along the way.
 
+```
+while the most recent term is less than 4000000
+  set the most recent term to equal the current term + the previous term
+  if this term is even, add it to our running total
+```
+
+In code:
+
 ```javascript
-function genFibonacciToN(num) {
-	var sequence = [1,1];
-	var result = 0;
-    var current;
-	while(sequence[sequence.length - 1] <= num) {
-		current = sequence[sequence.length - 1] + sequence[sequence.length - 2];
-		if (current % 2 == 0)
-			result += current;
-		sequence.push(current);
-	}
-	return result;
+var sumEvenFibonacciToN = function(num) {
+  var result = 0;
+  var current = previous = 1;
+  while(current < num) {
+    temp = current + previous;
+    previous = current;
+    current = temp;
+    if (current % 2 == 0)
+      result += current;
+  }
+  return result;
 }
 ```
 
+our result is, `sumEvenFibonacciToN(4000000)`:
+> 4613732
 

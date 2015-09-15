@@ -1,17 +1,15 @@
 //Problem 2
 
-function genFib(num) {
-	var fib = [1,1];
+function sumEvenFibonacciToN(num) {
 	var result = 0;
-	while(fib[fib.length - 1] <= num) {
-		var temp = fib[fib.length - 1] + fib[fib.length - 2];
-		if (temp % 2 == 0)
-			result += temp;
-		fib.push(temp);
-
+  var current = previous = 1;
+	while(current < num) {
+		temp = current + previous;
+    previous = current;
+    current = temp;
+		if (current % 2 == 0)
+			result += current;
 	}
 	return result;
 }
 
-var result = genFib(4000000);
-console.log(result);
