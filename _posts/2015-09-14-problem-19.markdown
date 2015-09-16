@@ -1,12 +1,11 @@
 ---
 layout: post
-title:  "Problem 19"
+title:  "Problem 19: Counting Sundays"
 date:   2015-09-14 12:43:21
 categories: Problem_1
 excerpt: |
   How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?
 ---
-PROBLEM 19: Counting Sundays
 
 > You are given the following information, but you may prefer to do some research for yourself.
 > 
