@@ -1,4 +1,13 @@
-### PROBLEM 7: 10001st prime
+---
+layout: post
+title:  "Problem 7: 10001st prime"
+date:   2015-09-16 12:43:21
+excerpt: |
+  By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.
+  
+  <br /><br />What is the 10 001st prime number?
+categories: Problem_7
+---
 
 > By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.
 > 
@@ -6,18 +15,18 @@
 
 Let's start with the brute force solution:
 
-```javascript
+{% highlight js %}
 start with num equals 2 and counter equals 0
 while counter does not equal 10001
   if num is prime
     increment counter
   increment num
 return num - 1 // to offset final increment in while loop
-```
+{% endhighlight %}
 
 In code:
 
-```javascript
+{% highlight js %}
 function get10001Prime() {
   var num = 2, counter = 0;
   while (counter !== 10001) {
@@ -26,11 +35,11 @@ function get10001Prime() {
   }
   return num - 1
 }
-```
+{% endhighlight %}
 
 For our `isPrime` function, we loop from 1 to the square root of num and see if num is divisible by any of these numbers
 
-```javascript
+{% highlight js %}
 function isPrime(num) {
   var root = Math.sqrt(num);
   for (var i = 2; i <= root; i++) {
@@ -38,7 +47,7 @@ function isPrime(num) {
   }
   return true;
 }
-```
+{% endhighlight %}
 And our solution is, `10001Prime()`
 
 > 104743
@@ -53,17 +62,17 @@ Meaning, that if we want n primes, this is approximately
 
 Since this is only asymptotic, let's simply double the number to ensure we generate enough primes.
 
-```javascript
+{% highlight js %}
 function nthPrime(n) {
   var limit = 2 * (n * Math.log(n));
   var primes = primeSeive(limit);
   return primes[n - 1]; // -1 for 0 indexing
 }
-```
+{% endhighlight %}
 
 Now we can write our Prime Seieve:
 
-```javascript
+{% highlight js %}
 function primeSeive(limit) {
   var primes = [];
   var root = Math.sqrt(limit);
@@ -85,7 +94,7 @@ function primeSeive(limit) {
     return Boolean(e);
   });
 }
-```
+{% endhighlight %}
 
 our solution is, `nthPrime(10001)`
 
