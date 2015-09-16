@@ -1,25 +1,40 @@
-### PROBLEM 6: Sum Square Difference
+---
+layout: post
+title:  "Problem 6: Sum Square Difference"
+date:   2015-09-14 12:43:21
+excerpt: |
+  The sum of the squares of the first ten natural numbers is,
+  
+  <br /><br />1<sup>2</sup> + 2<sup>2</sup> + ... + 10<sup>2</sup> = 385
+  The square of the sum of the first ten natural numbers is,
+  
+  <br /><br />(1 + 2 + ... + 10)<sup>2</sup> = 55<sup>2</sup> = 3025
+  <br /><br />Hence the difference between the sum of the squares of the first ten natural numbers and the square of the sum is 3025 − 385 = 2640.
+  
+  <br /><br />Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.
+categories: Problem_6
+---
 
 > The sum of the squares of the first ten natural numbers is,
 > 
-> 12 + 22 + ... + 102 = 385
+> 1<sup>2</sup> + 2<sup>2</sup> + ... + 10<sup>2</sup> = 385
 > The square of the sum of the first ten natural numbers is,
 > 
-> (1 + 2 + ... + 10)2 = 552 = 3025
+> (1 + 2 + ... + 10)<sup>2</sup> = 55<sup>2</sup> = 3025
 > Hence the difference between the sum of the squares of the first ten natural numbers and the square of the sum is 3025 − 385 = 2640.
 > 
 > Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.
 
 The brute force solution is pretty straightforward:
 
-```javascript
+{% highlight js %}
 add the numbers 1 to 100
 square the total
 subtract the square of each number from 1 to 100
-```
+{% endhighlight %}
 
 In code:
-```javascript
+{% highlight js %}
 function sumSquareDifference() {
   var total = 0;
   for (var i = 1; i <= 100; i++) {
@@ -31,7 +46,7 @@ function sumSquareDifference() {
   }
   return total;
 }
-```
+{% endhighlight %}
 Our solution is, `sumSquareDifference()`:
 
 > 25164150 
@@ -40,30 +55,30 @@ Let's see if we can reach a more elegant solution.
 
 I'm going to divide the algorithm into two separate functions and see if we can derive pure mathematical solutions for these helper functions.
 
-```javascript
+{% highlight js %}
 function sumSquareDifference(n) {
   return squareOfSums(n) - sumOfSquares(n);
 }
-```
+{% endhighlight %}
 
 Let's start with `squareOfSums`. We know that the sum of the natural numbers from `1..n` is `n(n+1)/2`.
 
-```javascript
+{% highlight js %}
 function squareOfSums(n) {
   var sums = (n * (n + 1)) / 2;
   return sums * sums;
 }
-```
+{% endhighlight %}
 
 Similarly, for `sumOfSquares`, we know the sum of squares from `1..n` is 
 
 `(n * (n + 1) * (2n + 1)) / 6`.
 
-```javascript
+{% highlight js %}
 function sumOfSquares(n) {
   return (n * (n + 1) * (2 * n + 1)) / 6;
 }
-```
+{% endhighlight %}
 
 Again, our solution is `sumSquareDifference(100)`;
 
