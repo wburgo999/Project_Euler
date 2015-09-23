@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Problem 21: Amicable Numbers"
-date:   2015-09-14 12:43:21
+date:   2015-08-20 12:43:21
 excerpt: |
   Let d(n) be defined as the sum of proper divisors of n (numbers less than n which divide evenly into n).
   If d(a) = b and d(b) = a, where a ≠ b, then a and b are an amicable pair and each of a and b are called amicable numbers.

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Problem 7: 10001st prime"
-date:   2015-09-16 12:43:21
+date:   2015-09-11 12:43:21
 excerpt: |
   By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.
   

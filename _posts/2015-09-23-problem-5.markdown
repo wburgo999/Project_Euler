@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Problem 5: Smallest Multiple"
-date:   2015-09-14 12:43:21
+date:   2015-09-23 12:43:21
 excerpt: |
   2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
   
