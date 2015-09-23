@@ -35,25 +35,25 @@ subtract the square of each number from 1 to 100
 
 In code:
 {% highlight js %}
-function sumSquareDifference() {
+function sumSquareDifference(n) {
   var total = 0;
-  for (var i = 1; i <= 100; i++) {
+  for (var i = 1; i <= n; i++) {
     total += i;
   };
   total = total * total;
-  for (var i = 1; i <= 100; i++) {
+  for (var i = 1; i <= n; i++) {
     total -= i * i;
   }
   return total;
 }
 {% endhighlight %}
-Our solution is, `sumSquareDifference()`:
+Our solution is, `sumSquareDifference(100)`:
 
 > 25164150 
 
-Let's see if we can reach a more elegant solution.
+The time complexity of this algorithm is `O(n)`, because we loop through every number from 1 to n, so the time the algorithm takes is proportional to the input size, n.This solution is perfectly fine, and should work for fairly large numbers. It's doubtful we would ever need to optimize a function like this in the course of normal work. But let's do it anyways. It turns out there's a nice mathematical solution to this problem.
 
-I'm going to divide the algorithm into two separate functions and see if we can derive pure mathematical solutions for these helper functions.
+I'll start by dividing the algorithm into two separate functions:
 
 {% highlight js %}
 function sumSquareDifference(n) {
@@ -61,7 +61,37 @@ function sumSquareDifference(n) {
 }
 {% endhighlight %}
 
-Let's start with `squareOfSums`. We know that the sum of the natural numbers from `1..n` is `n(n+1)/2`.
+Let's start with `squareOfSums`. Fellow math nerds probably already know that the sum of the natural numbers from `1..n` is `n(n+1)/2`. But let's derive it:
+
+Define `S(n)` to be the sum of the natural numbers from `1` to `n`:
+
+`S(n) = 1 + 2 + ... + (n - 1) + n`
+
+Then
+
+`2*S(n) = (1 + 2 + ... + (n - 1) + n) + (1 + 2 + ... + (n - 1) + n)`
+
+Rearranging:
+
+`2*S(n) = (1 + 2 + ... + (n - 1) + n) + (n + (n - 1) + ... + 2 + 1)`
+
+Line up the two terms of this sum:
+
+
+{% highlight js %}
+(1 + 2 + ... + (n - 1) + n) 
+(n + (n - 1) + ... + 2 + 1)
+{% endhighlight %}
+
+Notice how the sum of each column is `n + 1` and there are n columns. Then:
+
+`2 * S(n) = n * (n+1)`
+
+Finally,
+
+`S(n) = n * (n + 1)`
+
+Our `sumOfSquares` function can simply return this formula.
 
 {% highlight js %}
 function squareOfSums(n) {
@@ -70,9 +100,34 @@ function squareOfSums(n) {
 }
 {% endhighlight %}
 
-Similarly, for `sumOfSquares`, we know the sum of squares from `1..n` is 
+`sumOfSquares` isn't as well known, I didn't know it off the top of my head, but was able to derive it. Unfortunately the same trick as above didn't seem to work. Eventually I just started writing out a table of differences to look for patterns.
 
-`(n * (n + 1) * (2n + 1)) / 6`.
+_ | n = 1 | n = 2 | n = 3 | n = 4 | n = 5 | n = 6
+--- | --- | --- | --- | --- | --- | --- | 
+n<sup>2</sup> | 1 | 4 | 9 | 16 | 25 | 36
+sumOfSquares | 1 | 5 | 14 | 30 | 55 | 91
+1st derivative | 1 | 4 | 9 | 16 | 25 | 36
+2nd derivative | _ | 3 | 5 | 7 | 9 | 11
+3rd derivative | _ | _ | 2 | 2 | 2 | 2
+
+
+<br />Since the `3rd derivative` is constant, we know the formula will be a polynomial of degree `3`. Meaning 
+
+S(n) = an<sup>3</sup> + bn<sup>2</sup> + cn + d, for some a,b,c,d.
+
+Note that when n = 0, we have `S(n)` = 0, so `d` must also be 0. That leaves 3 variables, `a`, `b`, and `c`.
+
+<br />When `n = 1`, we have `S(1) = 1 = a + b + c``
+
+When `n = 2`, we have `S(2) = 5 = 8a + 4b + 2c``
+
+When `n = 3`, we have `S(3) = 14 = 27a + 9b + 3c``
+
+<br />This is a system of equations with `3` equations and `3` unknown variables, so we know it has a solution. I'll spare you the algebra since it's fairly straightforward and a bit tedious. Once you've simplified it down, you get:
+
+`S(n) = (n * (n + 1) * (2n + 1)) / 6`.
+
+Again, our function `sumOfSquares` can simply return this formula.
 
 {% highlight js %}
 function sumOfSquares(n) {
@@ -80,6 +135,20 @@ function sumOfSquares(n) {
 }
 {% endhighlight %}
 
-Again, our solution is `sumSquareDifference(100)`;
+Our solution is `sumSquareDifference(100)`;
 
 > 25164150 
+
+But this time our solution is constant time, `O(1)`. Note that our formula works for all values of `n`, and the number of operations does not increase as n grows. It finishes extremely fast even for extremely large numbers that made our linear time algorithm stall.
+
+`sumSquareDifference(1000000000)    //billion`
+
+> 2.5000000016666668e+35
+
+`sumSquareDifference(1000000000000)   //trillion`
+
+> 2.500000000001667e+47
+
+`sumSquareDifference(1000000000000000)  // quadrillion`
+
+> 2.500000000000002e+59

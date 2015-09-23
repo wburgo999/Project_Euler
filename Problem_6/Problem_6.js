@@ -23,3 +23,8 @@ function sumOfSquares(n) {
 
 
 console.log(sumSquareDifference_2(100));  
+
+console.log(sumSquareDifference_2(1000000000));  
+console.log(sumSquareDifference_2(1000000000000));  
+console.log(sumSquareDifference_2(1000000000000000));  
+
