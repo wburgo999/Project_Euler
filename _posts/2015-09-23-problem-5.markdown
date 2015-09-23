@@ -47,17 +47,19 @@ And our solution is `smallestMultiple()`:
 
 > 232792560 
 
-This isn't a great solution, though. We have to loop over 23 million times to reach our answer, and while this doesn't take long with modern computers with GigaHertz processors, we can imagine that a similar question but applied to the numbers 1 to 100, would take much longer.
+This isn't a great solution, though. We have to loop over 23 million times to reach our answer, and while this doesn't take long on modern computers with GigaHertz processors, we can imagine that a similar question but applied to the numbers 1 to 100, would take much longer. In fact, I tried running it on my laptop for 2 minutes and it never returned. 
 
-Let's try a different algorithm. Note that for any numbers `a` and `b`, the smallest common multiple, `c`, has the property that the prime factorisations of `a` and `b` are both subsets of the prime factorisation of `c`. For example, take `8` and `20`. the prime factorisation of `8` is `2*2*2` and for `20` is `2*2*5`, and the smallest common multiple is `40`, whose prime factorisation is `2*2*2*5`. Notice that this prime factorisation is the smallest set of numbers that contains both the prime factorisation of `8` and the prime factorisation of `20`.
+Let's try a different algorithm. Note that for any numbers `a` and `b`, the smallest common multiple, `c`, has the property that the prime factorisations of `a` and `b` are both subsets of the prime factorisation of `c` and `c` is the smallest number for which this is true. In other words, the prime factorisation is the smallest superset of the prime factorisations of `a` and `b`. 
+
+That last sentence may be difficult to parse, so let's find a concrete example: take `8` and `20`. the prime factorisation of `8` is `2*2*2` and for `20` is `2*2*5`, and the smallest common multiple is `40`, whose prime factorisation is `2*2*2*5`. Notice that this prime factorisation is the smallest set of numbers that contains both the prime factorisation of `8` and the prime factorisation of `20`.
 
 So our new algorithm is:
 
 {% highlight js %}
 for num from 1 to 20
-  get prime factorisation
-  combine prime factorization into new prime factorisation for the LCM
-return the product of new prime factorization
+  get prime factorisation for num
+  modify LCM prime factorisation to ensure it is a superset of nums prime factorisation
+return the product of lcm's prime factorization
 {% endhighlight %}
 
 In code:
@@ -67,7 +69,7 @@ function smallestMultiple(n) {
   var primeFactors;
   for (var num = 1; num <= n; num++) {
     primeFactors = getPrimeFactors(num);
-    combine(lcmPrimeFactors, primeFactors);
+    makeSupersetOf(lcmPrimeFactors, primeFactors);
   }
   return multiplyFactors(lcmPrimeFactors);
 }
@@ -91,10 +93,10 @@ function getPrimeFactors(num) {
 }
 {% endhighlight %}
 
-Now let's write our `combine` function, which will take an existing prime factorisation and a new prime Factorisation and modify the existing one to ensure it is a superset of the new one.
+Now let's write our `makeSupersetOf` function, which will take an existing prime factorisation and a new prime Factorisation and modify the existing one to ensure it is a superset of the new one.
 
 {% highlight js %}
-function combine(factors, newFactors) {
+function makeSupersetOf(factors, newFactors) {
   for (var key in newFactors) {
     if (!factors[key] || newFactors[key] > factors[key]) {
       factors[key] = newFactors[key];
