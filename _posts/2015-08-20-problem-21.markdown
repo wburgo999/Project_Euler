@@ -51,23 +51,42 @@ function sumOfDivisors(n) {
 {% endhighlight %}
 
 Let's write `getDivisors`. We loop from 1 to the square root of n and add the divisors, making sure not to double count the square root.
-We cache previous results to speed up the algorithm. 
 
 Why do we only loop to the square root instead of all the way to n?
 
 Define `root` to be the square root of n. Note that if `a * b = n`, that either (1) `a = b` (2) `a > root` or (3) `b > root`. If this were not true, then `a * b < n` and they would not be proper divisors. This means that for all proper divisors of n greater than root, there is a matching divisor less than root, so as long as we add both factors whenever we encounter a divisor less than root, we won't miss any divisors. We also need to make sure not to double count the root.
+
+
+{% highlight js %}
+function getDivisors(n) {
+  var divisors = [1]; // n is not a proper divisor, so just initialize with 1 to avoid including n
+  var root = Math.sqrt(n);
+  for (var i = 2; i <= root; i++) {
+    if (n % i === 0) {
+      divisors.push(i);
+      if (i != root) divisors.push(n / i); //don't double count
+    }
+  }
+  cache[n] = divisors;
+  return cache[n];
+}
+{% endhighlight %}
+
+Since we use our `getDivisors` function many times, often on the same numbers, let's cache previous results to optimize it. Since Javascript has function-level scope, we can simply wrap our previous function in an immediately invoked function expression (IIFE), and each time check whether the result is already in our cache. This is called `memoizing`. It's a common enough thing to do that most utility libraries - `underscore`, `lodash` - include a `memoize` function. But let's write it ourselves.
+
 
 {% highlight js %}
 var getDivisors = (function() {
   var cache = {};
 
   return function(n) {
-    var divisors = [1]; // n is not a proper divisor, so just initialize with 1 to avoid including n
+    if (cache[n]) return cache[n];
+    var divisors = [1]; 
     var root = Math.sqrt(n);
     for (var i = 2; i <= root; i++) {
       if (n % i === 0) {
         divisors.push(i);
-        if (i != root) divisors.push(n / i); //don't double count
+        if (i != root) divisors.push(n / i); 
       }
     }
     cache[n] = divisors;
