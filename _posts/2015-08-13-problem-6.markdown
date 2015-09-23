@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Problem 6: Sum Square Difference"
-date:   2015-08-11 13:43:21
+date:   2015-08-13 13:43:21
 excerpt: |
   The sum of the squares of the first ten natural numbers is,
   
