@@ -16,6 +16,16 @@ function sumMultiplesOf3And5() {
 }
 ```
 
+But what is the time complexity? Let's vary `1000` as the input and make it arbitrarily large.
+
+<p align="center">
+  <img height="400" width="400" src="./images/time_complexity_1.png" alt="Sublime's custom image"/>
+</p>
+
+This is a linear time solution, `O(n)`.
+
+Let's see if we can do better
+
 Math Solution:
 <p align="center">
   <img src="./math/render.png" alt="Sublime's custom image"/>
@@ -33,4 +43,17 @@ Then we can reduce the above equation to:
 Reduce, and our answer is
 > 233168
 
+If we try our input with larger numbers we get:
+
+| Input         | Time (ms)     |
+| ------------- |:-------------:|
+| 1e+5          | 0             |
+| 1e+6          | 0             |
+| 1e+7          | 0             |
+| 1e+8          | 0             |
+| 1e+9          | 0             |
+| 1e+10         | 0             |
+| 1e+11         | 0             |
+
+The algorithm takes less than 1 ms, and does not increase with input size. There's no point in plotting a flat line at 0, but it's clear this algorithm is constant time, `O(1)`.
 
