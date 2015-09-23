@@ -1,0 +1,81 @@
+---
+layout: post
+title:  "Problem 67: Smallest Multiple"
+date:   2015-09-03 12:43:21
+excerpt: |
+  By starting at the top of the triangle below and moving to adjacent numbers on the row below, the maximum total from top to bottom is 23.
+
+  <br /><br />3
+  <br />7 4
+  <br />2 4 6
+  <br />8 5 9 3
+  
+  <br /><br />That is, 3 + 7 + 4 + 9 = 23.
+  
+  <br /><br />Find the maximum total from top to bottom in triangle.txt.
+
+categories: Problem_67
+---
+
+> By starting at the top of the triangle below and moving to adjacent numbers on the row below, the maximum total from top to bottom is 23.
+> 
+> 3
+> <br />7 4
+> <br />2 4 6
+> <br />8 5 9 3
+> 
+> That is, 3 + 7 + 4 + 9 = 23.
+> 
+> Find the maximum total from top to bottom in [triangle.txt](https://projecteuler.net/project/resources/p067_triangle.txt) 
+
+
+Conceptually, we can think of this as a binary tree - each node has a left child and right child unless it is a leaf ndoe. The brute force solution would be to simply generate all paths and return the largest. It might look like this
+
+{% highlight js %}
+to generate all path sums:
+  maintain an array of total sums
+  if we are at the bottom row
+    push the path sum to the array
+  else
+    recurse with left and right child nodes and update our temp total sum
+
+return maximum sum in array
+{% endhighlight %}
+
+
+Unfortunately, this algorithm is intractable for our problem size. Recursing all the way down a tree and creating all possible paths is an exponential time operation O(C<sup>n</sup>). With 100 lines of numbers,  C<sup>100</sup> is impossibly large. 
+
+Instead let's use a dynamic programming solution. Notice that at each node, we can either go to the left child node (visually, down) or the right child node. This means each node can be reduced to the the maximum of the path sum for it's left child node and it's right child node.
+
+`maximum_path(node) = max(maximum_path(node.left) + node.left.value, maximum_path(node.right) + node.right.value)`
+
+So we can loop from the bottom to the top of the triangle, reducing each node to the maximum of it's left and right sub nodes.
+
+{% highlight js %}
+loop through from second to last row to 1st row
+  loop through each element in row
+    set element to the max of its left child and right node 
+
+return root node
+{% endhighlight %}
+
+Now, in code. Note that we have conceptually been treating the triangle as a binary triangle with left and right child nodes, but it is actually just a 2-dimensional array. 
+
+{% highlight js %}
+function max_path_sum(triangle) {
+  var rows = triangle.length;
+  var cols;
+  for (var i = rows - 2; i >= 0; i++) {
+    cols = triangle[i].length;
+    for (var j = 0; j < cols; j++) {
+      triangle[i][j] += Math.max(triangle[i + 1][j], triangle[i + 1][j + 1]);
+    }
+  }
+
+  return triangle[0][0];
+}
+{% endhighlight %}
+And our solution is `maximum_path_sum()`:
+
+> 7273 
+
