@@ -89,7 +89,7 @@ Notice how the sum of each column is `n + 1` and there are n columns. Then:
 
 Finally,
 
-`S(n) = n * (n + 1)`
+`S(n) = (n * (n + 1)) / 2
 
 Our `sumOfSquares` function can simply return this formula.
 
