@@ -15,13 +15,13 @@ categories: Problem_1
 
 In Pseudocode:
 
-{% highlight js %}
+```
 Generate all products of 2 three digit numbers
 sort these products
 loop from largest to smallest product
   if product is a palindrome
     return product
-{% endhighlight %}
+```
 
 In code:
 

@@ -21,12 +21,14 @@ categories: Problem_1
 
 Let's pseudocode out the algorithm.
 Note, since a and b must be a pair, meaning they are distinct numbers, we need to make sure not to count the case where the sum of all divisors of n equals n.
-{% highlight js %}
+
+```
 For each n from 1 to 10000
   get sum of all divisors of n
   if n equals the sum of all divisors of this sum, and sum does not equal n
     add n and sum to our running total
-{% endhighlight %}
+```
+
 Let's rewrite the algorithm in code:
 {% highlight js %}
 function amicableNumbers(n) {

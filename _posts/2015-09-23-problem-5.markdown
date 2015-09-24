@@ -15,12 +15,12 @@ categories: Problem_5
 
 Let's start with a brute force solution:
 
-{% highlight js %}
+```
 loop, start with num equals 21
   if num is divisible by all numbers 1..20
     return num
   otherwise, increment num
-{% endhighlight %}
+```
 
 In Code:
 
@@ -124,7 +124,7 @@ Using this algorithm, we get `smallestMultiple(20)`:
 
 It also works for all numbers from 1 to 100, `smallestMultiple(100)`
 
-> about `6.972037522971249e+40`
+> 6.972037522971249e+40
     
     
     

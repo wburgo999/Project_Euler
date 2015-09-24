@@ -15,11 +15,11 @@ categories: Problem_3
 
 Initally, you might think to brute force the solution:
 
-{% highlight js %}
+```
 for num from 600851475143 to 1
   if num is prime and num is a factor of 600851475142
     return num
-{% endhighlight %}
+```
 
 Unfortunately, `600851475143` is a very large number, and checking whether a number is prime takes, at best, root n checks, so the algorithm would be way too slow.
 

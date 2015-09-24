@@ -13,8 +13,15 @@ categories: Problem_1
 > Find the sum of all the multiples of 3 or 5 below 1000.
 
 
-Naive solution: just loop through from 1 to 1000, and add each multiple of 3 or 5 to a running total. An easy way to check if a number, n, is a multiple of m,
-is whether n % m is 0;
+Naive solution: 
+
+```
+loop through from 1 to 1000 
+  add each multiple of 3 or 5 to a running total
+return total
+```
+
+To check if a number `n` is divisible by another number `k`, check if `n % k === 0`. In code,
 
 {% highlight js %}
 function sumMultiplesOf3And5() {
@@ -25,4 +32,8 @@ function sumMultiplesOf3And5() {
   return sum;
 }
 {% endhighlight %}
+
+Our solution, `sumMultiplesOf3And5()`
+
+> 233168 
 

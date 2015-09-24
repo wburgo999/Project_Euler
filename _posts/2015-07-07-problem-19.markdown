@@ -22,11 +22,12 @@ excerpt: |
 
 
 From a high level, here's what our algorithm should look like
-{% highlight javascript %}
+
+```
 Loop through every year from 1901 to 2000
    Loop through every month
      If the first of that month is a Sunday, increment our result
-{% endhighlight %}
+```
 
 But how do we know whether the first of the month is a Sunday? Well, we keep track of the `dayOfWeek` for the 1st of each month, 
 then for each month, reassign `dayOfWeek`: 

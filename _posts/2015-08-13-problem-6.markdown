@@ -27,11 +27,11 @@ categories: Problem_6
 
 The brute force solution is pretty straightforward:
 
-{% highlight js %}
+```
 add the numbers 1 to 100
 square the total
 subtract the square of each number from 1 to 100
-{% endhighlight %}
+```
 
 In code:
 {% highlight js %}
@@ -141,14 +141,14 @@ Our solution is `sumSquareDifference(100)`;
 
 But this time our solution is constant time, `O(1)`. Note that our formula works for all values of `n`, and the number of operations does not increase as n grows. It finishes extremely fast even for extremely large numbers that made our linear time algorithm stall.
 
-`sumSquareDifference(1000000000)    //billion`
+`sumSquareDifference(1000000000) `
 
 > 2.5000000016666668e+35
 
-`sumSquareDifference(1000000000000)   //trillion`
+`sumSquareDifference(1000000000000)`
 
 > 2.500000000001667e+47
 
-`sumSquareDifference(1000000000000000)  // quadrillion`
+`sumSquareDifference(1000000000000000) `
 
 > 2.500000000000002e+59

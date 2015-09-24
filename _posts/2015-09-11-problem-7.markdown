@@ -15,16 +15,16 @@ categories: Problem_7
 
 Let's start with the brute force solution:
 
-{% highlight js %}
+```
 start with num equals 2 and counter equals 0
 while counter does not equal 10001
   if num is prime
     increment counter
   increment num
-return num - 1 // to offset final increment in while loop
-{% endhighlight %}
+return num - 1 
+```
 
-In code:
+We return `num - 1` to offset the final increment in the while loop. In code:
 
 {% highlight js %}
 function get10001Prime() {

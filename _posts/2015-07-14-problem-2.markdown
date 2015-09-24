@@ -24,11 +24,11 @@ Solution: The fibonacci sequence is defined as:
 
 So, we can continue to generate the sequence until we reach a term over `4000000`, and maintain a running sum of all the even terms along the way.
 
-{% highlight js %}
+```
 while the most recent term is less than 4000000
   set the most recent term to equal the current term + the previous term
   if this term is even, add it to our running total
-{% endhighlight %}
+```
 
 In code:
 
