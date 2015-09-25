@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="bower_components/Chart.js/Chart.min.js"> </script>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  Hello, world
+<canvas id="myChart" width="400" height="400"></canvas>
+<script src="./Problem_1.js"></script>
+<script>
+  var ctx = document.getElementById("myChart").getContext("2d");
+  var data = {
+    labels: peData.labels,
+    datasets: [
+    {
+      label: "My First dataset",
+      fillColor: "rgba(151,187,205,0.2)",
+      strokeColor: "rgba(151,187,205,1)",
+      pointColor: "rgba(151,187,205,1)",
+      pointStrokeColor: "#fff",
+      pointHighlightFill: "#fff",
+      pointHighlightStroke: "rgba(220,220,220,1)",
+      data: peData.data
+    }
+    ]
+  };
+var myLineChart = new Chart(ctx).Line(data, {datasetFill: false});
+</script>
+  
+</body>
+</html>
