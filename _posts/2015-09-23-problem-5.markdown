@@ -25,10 +25,10 @@ loop, start with num equals 21
 In Code:
 
 {% highlight js %}
-function smallestMultiple() {
-  var num = 21;
+function smallestMultipleFrom1ToN(n) {
+  var num = n + 1;
   while (true) {
-    if (numisDivisibleBy1To20(num)) return num;
+    if (numisDivisibleBy1ToN(num, n)) return num;
     num++;
   }
 }
@@ -36,18 +36,21 @@ function smallestMultiple() {
 And now let's write numIsDivisibleBy1To20:
 
 {% highlight js %}
-function isDivisibleBy1To20() {
-  for (var i = 1; i <= 20; i++) {
+function isDivisibleBy1ToN(num, n) {
+  for (var i = 1; i <= n; i++) {
     if (num % i !== 0) return false;
   }
   return true;
 }
 {% endhighlight %}
-And our solution is `smallestMultiple()`:
+And our solution is `smallestMultiple(20)`:
 
 > 232792560 
 
+
 This isn't a great solution, though. We have to loop over 23 million times to reach our answer, and while this doesn't take long on modern computers with GigaHertz processors, we can imagine that a similar question but applied to the numbers 1 to 100, would take much longer. In fact, I tried running it on my laptop for 2 minutes and it never returned. 
+
+What is the time complexity of this algorithm? Complexity analysis is a bit odd for this problem. What's the input size? Would it be `20` in this case? Or would it be proportional to our actual answer, in this case `232792560`? If we define the integer input as `n` and the final answer as `m`, then our runtime is `O(n*m)`, because we loop up to our final answer, and for each number below, we have to check if it is divisible by each natural number up to `n`. Regardless, it's not good.
 
 Let's try a different algorithm. Note that for any numbers `a` and `b`, the smallest common multiple, `c`, has the property that the prime factorisations of `a` and `b` are both subsets of the prime factorisation of `c` and `c` is the smallest number for which this is true. In other words, the prime factorisation is the smallest superset of the prime factorisations of `a` and `b`. 
 
@@ -122,9 +125,11 @@ Using this algorithm, we get `smallestMultiple(20)`:
 
 > 232792560 
 
-It also works for all numbers from 1 to 100, `smallestMultiple(100)`
+It also works for all numbers from 1 to 100, `smallestMultiple(100)`, which never returned using our last algorithm.
 
 > 6.972037522971249e+40
+
+What's the time complexity for this algorithm? Again, this is a weird one. We loop for each number up to `n` and find it's prime factorisation. What the time complexity of finding a prime factorisation? Unclear exactly, but it's clearly sublinear. So the time complexity is roughly `n * sublinear(n)`, compared to `O(n*m)`. Since `m` grows hyperlinearly with `n`, this is a significantly better solution
     
     
     
