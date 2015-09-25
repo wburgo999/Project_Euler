@@ -1,3 +1,4 @@
+var time = require("../helpers/TimeComplexity.js")
 //Approach 1 - brute force
 function multiplesOf3And5(n) {
   var sum = 0;
@@ -33,9 +34,8 @@ function getTime(fn, parameters) {
     });
   }
 }
-console.log(multiplesOf3And5_2(1000));
-var peData = getTime(multiplesOf3And5_2, [10000000,100000000,1000000000,1000000000,1000000000]);
-//var peData = getTime(multiplesOf3And5_2, [10000000,20000000,30000000,40000000,50000000,60000000,70000000,80000000,90000000,100000000]);
-console.log(peData);
+//var data = time(multiplesOf3And5, [10000000,100000000,1000000000,1000000000,1000000000]);
+var data2 = time(multiplesOf3And5_2, [10000000,100000000,1000000000,1000000000,1000000000]);
+console.log(data2);
 
 
