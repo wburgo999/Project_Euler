@@ -1,0 +1,136 @@
+---
+layout: post
+title:  "Problem 28: Number spiral diagonal"
+date:   2015-09-25 12:43:21
+excerpt: |
+  Starting with the number 1 and moving to the right in a clockwise direction a 3 by 3 spiral is formed as follows.
+  
+  <br /><br />7  8  9
+  <br />6  1  2
+  <br />5  4  3
+  
+  <br /><br />It can be verified that the sum of the numbers on the diagonals is 101.
+  
+  <br />What is the sum of the numbers on the diagonals in a 1001 by 1001 spiral formed in the same way?
+categories: Problem_28
+---
+> starting with the number 1 and moving to the right in a clockwise direction a 3 by 3 spiral is formed as follows:
+>  
+> 7  8  9
+> 6  1  2
+> 5  4  3
+>  
+> 
+> It can be verified that the sum of the numbers on the diagonals is 101.
+> 
+> What is the sum of the numbers on the diagonals in a 1001 by 1001 spiral formed in the same way?
+> 
+
+Naive solution: While I'm sure it's possible to construct the spiral as an array or arrays and then iterate through and only add the corners, that sounds really painful. Instead, let's see if we can come up with a formula for the nth "ring" of a spiral. Define the 0th ring to be the center, `1`, and the 1st ring to be the numbers `2-9`, and so on. 
+
+We can see that the upper right diagonal is always equal to (2 * n + 1)<sup>2</sup>, where `n` is the ring number. Next, notice that to reach the following corner counterclockwise, we substract `2n`. This pattern holds for the other corners as well. Therefor, our formula for summing the 4 corners of the nth ring, is:
+
+
+F(n) = 4(2n + 1)<sup>2</sup> - (2 + 4 + 6)n
+
+Meaning, our answer should be the sum of all "rows" in  1001-by-1001 spiral. This spiral has 501 "rings", but we are going to count the first "ring", which will always be `1`, as a separate case. Then our formula becomes
+
+sumOfDiagonals = 1 + ( sum from 1 to 500 (4(2n + 1)^2 - (2 + 4 + 6)n) )
+
+Here's the same solution in code but for any size spiral.
+
+
+{% highlight js %}
+function numberSpiralDiagonals(n) {
+  var numRings = Math.floor(n);
+  var total = 1;
+  for (var i = 1; i <= numRings; i++) {
+    total += 4 * Math.pow(2 * i + 1, 2) - 12 * i;
+  }
+  return total;
+}
+{% endhighlight %}
+
+Our solution is, `numSpiralDiagonals(1001)`,
+
+> 669171001
+
+But what's  the time complexity? Well, we are looping about `n/2` times, so the algorithm's running time will be directly proportional to input size, meaning it's linear time, `O(n)`.
+
+Let's verify this is true by seeing how long the algorithm takes to run for various input sizes
+
+| Input(n)      | Time (ms)     |
+| ------------- | -------------:|
+| 1e+8          | 238           |
+| 2e+8          | 478           |
+| 4e+8          | 922           |
+| 6e+8          | 1501          |
+| 8e+8          | 1981          |
+| 1e+9          | 2520          |
+
+<br /> The data is definitely linear.
+
+
+Can we do better? In [Problem 6]({% post_url 2015-08-13-problem-6 %}) we derived the formula for both the sum of squares of the natural numbers from 1 to n by first constructing a table of difference to determine the degree of the polynomial, then using a system of equations to derive the coefficients. Let's do the same thing here.
+
+Table of differences:
+
+_ | n = 0 | n = 1 | n = 2 | n = 3 | n = 4 | n = 5
+--- | --- | --- | --- | --- | --- | --- | 
+f(n) | 1 | 25 | 101 | 261 | 537 | 961
+1st derivative | _ | 24 | 76 | 160 | 276 | 424
+2nd derivative | _ | _ | 52 | 84 | 116 | 148 
+3rd derivative | _ | _ | _ | 32 | 32 | 32
+
+<br />Since the third derivative is constant, we know the solution is a polynomial of degree 3, and takes the form 
+
+
+f(n) = ax<sup>3</sup> + bx<sup>2</sup> + cx + d.
+
+Since f(0) = 1, we know d = 1;
+
+Then, we can use the solutions to `f(1)`, `f(2)`, and `f(3)` to get our three equations:
+
+
+`
+a + b + c + d = 25 
+`
+
+`
+8a + 4b + 2c + d = 101
+`
+
+`
+27a + 9b + 3c + d = 261
+`
+
+This is a system of equations with 3 equations and 3 unknown variables, so we know it can be solved. I'll spare you the algebra since it is both straightforward and tedious. After solving, we get `a=16/3`, `b=10`, and `c=26/3`. Our final equation is
+
+f(n) = 16/3x<sup>3</sup> + 10x<sup>2</sup> + 26/3<sup>x</sup> + 1
+
+Our final algorithm is:
+
+
+{% highlight js %}
+function numberDiagonalSum(n) {
+  var rings = Math.floor(n / 2);
+  return (16/3) * Math.pow(rings, 3) + 10 * Math.pow(rings, 2) + (26/3) * rings + 1;
+}
+{% endhighlight %}
+
+The time complexity of this algorithm is constant, `O(1)`. We can apply this algorithm to arbitrarily large numbers and it will still finish in roughly the same amount of time.
+
+Let's verify to make sure this is true;
+
+
+| Input(n)      | Time (ms)     |
+| ------------- | -------------:|
+| 1e+5          | 0             |
+| 1e+6          | 0             |
+| 1e+7          | 0             |
+| 1e+8          | 0             |
+| 1e+9          | 0             |
+| 1e+10         | 0             |
+| 1e+11         | 0             |
+
+<br />  Unfortunately, Javascript does not have sub-millisecond timing (see my [ initial ]({% post_url 2015-06-28-problem-1 %}) post on time complexity for more on how and why I made decisions to analyze time complexity this way), but it's clear the solution is constant time: no matter how large the input size, the time to completion is constant.
